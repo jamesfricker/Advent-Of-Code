@@ -45,7 +45,7 @@ def win_score_calc(line):
     return did_win_rps(opponent, me)
 
 
-def my_move_calc(line):
+def move_calc(line):
     my_move = line[2]
     return calc_move_value(my_move)
 
@@ -66,7 +66,7 @@ def calc_move_value(move):
 
 
 result_sum = sum(map(win_score_calc, lines))
-my_move_sum = sum(map(my_move_calc, lines))
+my_move_sum = sum(map(move_calc, lines))
 print(f"Q1 Solution: {result_sum+my_move_sum}")
 # 11475
 
@@ -119,3 +119,4 @@ def calc_best_move(line):
 
 calc_best_move_sum = sum(map(calc_best_move, lines))
 print(f"Q2 Solution: {calc_best_move_sum}")
+# 16862
