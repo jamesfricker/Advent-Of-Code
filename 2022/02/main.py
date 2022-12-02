@@ -47,22 +47,22 @@ def win_score_calc(line):
 
 def move_calc(line):
     my_move = line[2]
-    return calc_move_value(my_move)
+    return calc_move_value(my_move) + 1
 
 
 def calc_move_value(move):
     if move == "X":
-        return 1
+        return 0
     if move == "Y":
-        return 2
-    if move == "Z":
-        return 3
-    if move == "A":
         return 1
-    if move == "B":
+    if move == "Z":
         return 2
+    if move == "A":
+        return 0
+    if move == "B":
+        return 1
     if move == "C":
-        return 3
+        return 2
 
 
 result_sum = sum(map(win_score_calc, lines))
@@ -76,6 +76,7 @@ print(f"Q1 Solution: {result_sum+my_move_sum}")
 def calc_best_move(line):
     opponent = line[0]
     me = line[2]
+    opponent_score = calc_move_value(opponent)
 
     # Y means we need a draw
     # X means we need to lose
@@ -84,7 +85,7 @@ def calc_best_move(line):
     # Y means we play the same as opponent
     # and get a draw (3 pts)
     if me == "Y":
-        return calc_move_value(opponent) + 3
+        return opponent_score + 3 + 1
     # X means we need to lose
     # so we get 0 for losing
     # and we play the losing move
@@ -93,12 +94,7 @@ def calc_best_move(line):
     # Paper + Rock (return 1)
     # Sci + Paper (return 2)
     if me == "X":
-        if opponent == "A":
-            return 3
-        if opponent == "B":
-            return 1
-        if opponent == "C":
-            return 2
+        return (opponent_score - 1) % 3 + 1
     # Z means we need to win
     # so we get 6 for winning
     # and we play the winning move
@@ -107,14 +103,7 @@ def calc_best_move(line):
     # Paper + Sci (return 3)
     # Sci + Rock (return 1)
     if me == "Z":
-        value = 6
-        if opponent == "A":
-            value += 2
-        if opponent == "B":
-            value += 3
-        if opponent == "C":
-            value += 1
-        return value
+        return (opponent_score + 1) % 3 + 6 + 1
 
 
 calc_best_move_sum = sum(map(calc_best_move, lines))
