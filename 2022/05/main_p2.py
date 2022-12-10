@@ -57,3 +57,4 @@ for l in lists:
     final_list.append(l[-1])
 
 print("".join(final_list))
+
