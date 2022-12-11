@@ -15,7 +15,10 @@ import os
 
 # run script
 # python3 get_input.py $DAY
-sessionToken = os.getenv("AoC_token")
+with open("../token.txt") as f:
+    lines = f.read().splitlines()
+
+sessionToken = lines[0]
 
 day = sys.argv[1]
 
