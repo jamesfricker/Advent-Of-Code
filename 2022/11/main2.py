@@ -79,12 +79,6 @@ for i in monkey_div_by:
     p *= i
 
 for r in range(0, 10000):
-    if r % 100 == 0:
-        print(r / 10000)
-    # monkey_0_states.append(monkey_curr[0])
-    # if monkey_curr[0] in monkey_0_states:
-    #     print(f"CYCLE: {r}")
-    #     print(monkey_curr[0])
     for m in range(len(monkey_curr)):
         new_curr = []
         for item in monkey_curr[m]:
@@ -105,9 +99,5 @@ for r in range(0, 10000):
                     new_curr.append(worry)
         monkey_curr[m] = new_curr
 
-print(monkey_curr)
-print(inspections)
 inspections = sorted(inspections)
 print(inspections[-1] * inspections[-2])
-
-5204, 10419, 15638, 20858
