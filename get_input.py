@@ -11,17 +11,21 @@ import os
 # 4. See Cookies, copy Value from session row
 
 # export the token
-# export AoC_token=$VALUE
+# copy into token.txt
 
 # run script
 # python3 get_input.py $DAY
-sessionToken = os.getenv("AoC_token")
+with open("token.txt") as f:
+    lines = f.read().splitlines()
 
-day = sys.argv[1]
+sessionToken = lines[0]
+
+year = sys.argv[1]
+day = sys.argv[2]
 
 
 def get_input(day):
-    url = "https://adventofcode.com/2021/day/" + str(day) + "/input"
+    url = f"https://adventofcode.com/{year}/day/{day}/input"
     headers = {"Cookie": "session=" + sessionToken}
     r = requests.get(url, headers=headers)
     if r.status_code == 200:
