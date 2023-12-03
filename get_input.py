@@ -26,6 +26,7 @@ day = sys.argv[2]
 
 def get_input(day):
     url = f"https://adventofcode.com/{year}/day/{day}/input"
+    print(url)
     headers = {"Cookie": "session=" + sessionToken}
     r = requests.get(url, headers=headers)
     if r.status_code == 200:
@@ -39,10 +40,11 @@ def write_input(text, day):
     if len(str(day)) < 2:
         day = f"0{str(day)}"
     # create the folder if it doesn't exist
-    if not os.path.exists(f"{day}"):
-        os.makedirs(f"{day}")
+    d = f"{year}/{day}"
+    if not os.path.exists(d):
+        os.makedirs(d)
     # write the day input to input.txt inside the directory
-    with open(f"{day}/input.txt", "w") as a:
+    with open(f"{d}/input.txt", "w") as a:
         a.write(text)
 
 
