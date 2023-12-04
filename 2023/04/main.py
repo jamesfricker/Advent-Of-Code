@@ -57,6 +57,7 @@ def part_one(game: Game):
     return total
 
 def part_two(game: Game):
+    total = 0
     for s in game.sets:
         set_index = game.sets.index(s) + 1
         s.multiplier += 1
@@ -64,8 +65,8 @@ def part_two(game: Game):
             if card in s.their_cards:
                 game.sets[set_index].multiplier += s.multiplier
                 set_index += 1
-
-    return sum([s.multiplier for s in game.sets])
+        total += s.multiplier
+    return total
 
 def main():
 
