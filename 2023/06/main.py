@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from typing import List
-from operator import mul
 # read example.txt
 
 with open("example.txt") as f:
