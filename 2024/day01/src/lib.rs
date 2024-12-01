@@ -1,4 +1,3 @@
-use std::cmp::min;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
@@ -46,13 +45,8 @@ pub fn calculate_solution(file_path: &str) -> i32 {
 pub fn part_two(file_path: &str) -> i32 {
     let (column1, column2) = read_values(file_path);
 
-    let mut occurrence1: HashMap<i32, usize> = HashMap::new();
     let mut occurrence2: HashMap<i32, usize> = HashMap::new();
 
-    // Populate occurrence maps for both columns
-    for &val in &column1 {
-        *occurrence1.entry(val).or_insert(0) += 1;
-    }
     for &val in &column2 {
         *occurrence2.entry(val).or_insert(0) += 1;
     }
