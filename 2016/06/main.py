@@ -5,8 +5,6 @@ from collections import defaultdict
 INPUT_Q1 = "input.txt"
 TEST_INPUT_Q1 = "test_input.txt"
 
-# @dataclass
-
 
 def read_input(loc: str) -> list[str]:
     with open(loc) as f:
@@ -15,8 +13,6 @@ def read_input(loc: str) -> list[str]:
 
 
 def p1(data: list[str]) -> str:
-    # for each list, get the most frequent, append to result
-
     maxs = [defaultdict(int) for _ in range(len(data[0]))]
 
     max_counts = [(None, 0) for _ in range(len(data[0]))]
