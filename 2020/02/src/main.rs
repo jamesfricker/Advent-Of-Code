@@ -1,8 +1,6 @@
 use std::{
-    fmt::format,
     fs::File,
     io::{self, BufRead, BufReader},
-    ops::Index,
     path::Path,
 };
 
@@ -125,7 +123,7 @@ fn part_a(file_name: &str) -> io::Result<u16> {
             count += 1
         }
     }
-    return Ok(count);
+    Ok(count)
 }
 
 fn part_b(file_name: &str) -> io::Result<u16> {
@@ -143,5 +141,5 @@ fn part_b(file_name: &str) -> io::Result<u16> {
             count += 1
         }
     }
-    return Ok(count);
+    Ok(count)
 }
