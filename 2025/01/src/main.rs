@@ -76,7 +76,54 @@ fn part_one(turns: &[LockTurn]) -> u32 {
     }
     hits
 }
+fn part_two(turns: &[LockTurn]) -> i32 {
+    let dial_size: i64 = 100;
+    let mut hits: i64 = 0;
+    // positions are 0..=99, starting at 50 (same as part_one)
+    let mut pos: i64 = 50;
 
+    for turn in turns {
+        let dist = turn.distance as i64;
+        let d = match turn.direction {
+            Direction::Left => -dist,
+            Direction::Right => dist,
+        };
+
+        if d != 0 {
+            // How far to go (in single steps) until we *first* hit 0,
+            // in this direction, starting from `pos`.
+            let (abs_step, offset) = if d > 0 {
+                // moving right: pos + k ≡ 0 (mod 100)
+                // smallest k > 0 is (100 - pos) % 100, but treat 0 as 100
+                let abs_step = d;
+                let mut offset = (dial_size - pos) % dial_size;
+                if offset == 0 {
+                    offset = dial_size;
+                }
+                (abs_step, offset)
+            } else {
+                // moving left: pos - k ≡ 0 (mod 100)
+                // smallest k > 0 is pos % 100, but treat 0 as 100
+                let abs_step = -d;
+                let mut offset = pos % dial_size;
+                if offset == 0 {
+                    offset = dial_size;
+                }
+                (abs_step, offset)
+            };
+
+            if abs_step >= offset {
+                // First hit at `offset`, then every 100 steps
+                hits += 1 + (abs_step - offset) / dial_size;
+            }
+        }
+
+        // Final position after the whole move (same semantics as part_one)
+        pos = (pos + d).rem_euclid(dial_size);
+    }
+
+    hits as i32
+}
 fn main() -> io::Result<()> {
     let example_turns = read_contents("example.txt")?;
     let q1_turns = read_contents("input.txt")?;
@@ -88,6 +135,14 @@ fn main() -> io::Result<()> {
     assert!(e1_sol == 3);
     println!("Part One Actual Solution: {}", q1_sol);
     assert!(q1_sol == 1086);
+
+    let e2_sol = part_two(&example_turns);
+    let q2_sol = part_two(&q1_turns);
+
+    println!("Part Two Example Solution: {}", e2_sol);
+    assert!(e2_sol == 6);
+    println!("Part Two Actual Solution: {}", q2_sol);
+    assert!(q2_sol == 1086);
 
     Ok(())
 }
